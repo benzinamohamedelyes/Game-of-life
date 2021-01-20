@@ -6,6 +6,7 @@ namespace GameOfLife
     {
         private static int rowCount;
         private static int columnCount;
+        public static bool[][] grid;
         static void Main(string[] args)
         {
             int generation = 1;
@@ -16,7 +17,29 @@ namespace GameOfLife
                 size = Console.ReadLine();
             }
             while (VerifyGridSize(size));
-            Console.WriteLine($"Generation {generation}");
+            Console.WriteLine("please provide the seed data line by line");
+            for (int i = 0; i < rowCount; i++)
+            {
+                string seedLine;
+                do
+                    seedLine = Console.ReadLine();
+                while (ValidateSeedLine(seedLine));
+                InitializeGridRowWithDeadCells(i, seedLine);
+
+            }
+            
+        }
+        public static void InitializeGridRowWithDeadCells(int row, string seedLine)
+        {
+            for (int i = 0; i < seedLine.Length; i++)
+            {
+                grid[row][i] = seedLine[i] != '.';
+            }
+            
+        }
+        public static bool ValidateSeedLine(string line)
+        {
+            throw new NotImplementedException();
         }
         public static bool VerifyGridSize(string stringSize)
         {

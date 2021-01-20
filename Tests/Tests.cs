@@ -20,5 +20,18 @@ namespace Tests
             Program.VerifyGridSize(testString).Should().BeFalse();
 
         }
+        [Fact]
+        public void ShouldAcceptOnlydotsAndAsterisksPerSeedLine()
+        {
+            string testString = "4 4";
+            Program.VerifyGridSize(testString).Should().BeTrue();
+
+            testString = "..A.";
+            Program.ValidateSeedLine(testString).Should().BeFalse();
+            testString = "..*";
+            Program.ValidateSeedLine(testString).Should().BeFalse();
+            testString = "..**";
+            Program.ValidateSeedLine(testString).Should().BeTrue();
+        }
     }
 }
