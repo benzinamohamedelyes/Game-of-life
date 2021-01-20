@@ -106,9 +106,26 @@ namespace GameOfLife
 
         public static void GenerateNextGeneration()
         {
-            throw new NotImplementedException();
-        }
+            bool[,] newGrid = new bool[_rowCount, _columnCount]; ;
+            for (int x = 0; x < _rowCount; x++)
+            {
 
+                for (int y = 0; y < _columnCount; y++)
+                {
+
+                    if (IsAlive(x,y) && CountAdjacentLivingCells(x,y) < 2)
+                    {
+                        newGrid[x,y] = false;
+                    }
+                    else
+                    {
+                        newGrid[x, y] = grid[x, y];
+                    }
+
+                }
+            }
+            grid = (bool[,]) newGrid.Clone();
+        }
         public static void InitializeGridRowWithSeedLine(int row, string seedLine)
         {
             for (int i = 0; i < seedLine.Length; i++)
