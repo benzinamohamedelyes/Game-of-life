@@ -113,7 +113,7 @@ namespace GameOfLife
                 for (int y = 0; y < _columnCount; y++)
                 {
 
-                    if (IsAlive(x,y) && CountAdjacentLivingCells(x,y) < 2)
+                    if (IsAlive(x,y) && (CountAdjacentLivingCells(x,y) < 2 || CountAdjacentLivingCells(x, y) > 3))
                     {
                         newGrid[x,y] = false;
                     }
