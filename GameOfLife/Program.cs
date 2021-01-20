@@ -103,6 +103,12 @@ namespace GameOfLife
             }
             return nbOfLivingCells;
         }
+
+        public static void GenerateNextGeneration()
+        {
+            throw new NotImplementedException();
+        }
+
         public static void InitializeGridRowWithSeedLine(int row, string seedLine)
         {
             for (int i = 0; i < seedLine.Length; i++)
