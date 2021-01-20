@@ -4,8 +4,8 @@ namespace GameOfLife
 {
     public class Program
     {
-        private int rowCount;
-        private int columnCount;
+        private static int rowCount;
+        private static int columnCount;
         static void Main(string[] args)
         {
             int generation = 1;
@@ -20,6 +20,14 @@ namespace GameOfLife
         }
         public static bool VerifyGridSize(string stringSize)
         {
+            string[] sizeArray = stringSize.Split(" ");
+            if (sizeArray.Length == 2 &&
+                int.TryParse(sizeArray[0], out rowCount) &&
+                int.TryParse(sizeArray[1], out columnCount))
+            {
+
+                return true;
+            }
             return false;
         }
 
