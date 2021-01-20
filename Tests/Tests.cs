@@ -20,6 +20,7 @@ namespace Tests
             Program.VerifyGridSize(testString).Should().BeFalse();
 
         }
+
         [Fact]
         public void ShouldAcceptOnlydotsAndAsterisksPerSeedLine()
         {
@@ -32,6 +33,17 @@ namespace Tests
             Program.ValidateSeedLine(testString).Should().BeFalse();
             testString = "..**";
             Program.ValidateSeedLine(testString).Should().BeTrue();
+        }
+
+        [Fact]
+        public void InitializedGridShoulBeAllDeadCells()
+        {
+            string testString = "4 4";
+            Program.VerifyGridSize(testString).Should().BeTrue();
+
+            Program.InitializeGridWithDeadCells();
+            
+            Program.CountLivingCells().Should().Be(0);
         }
     }
 }
