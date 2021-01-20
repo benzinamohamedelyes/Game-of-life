@@ -42,7 +42,7 @@ namespace Tests
             Program.VerifyGridSize(testString).Should().BeTrue();
 
             Program.InitializeGridWithDeadCells();
-            
+
             Program.CountLivingCells().Should().Be(0);
         }
         [Fact]
@@ -86,6 +86,34 @@ namespace Tests
             Program.CountLivingCells().Should().Be(2);
             Program.GenerateNextGeneration();
             Program.CountLivingCells().Should().Be(0);
+
+        }
+        [Fact]
+        public void ACellWithMoreThanThreeAdjacentCellsDies()
+        {
+            string testString = "5 5";
+            Program.VerifyGridSize(testString).Should().BeTrue();
+
+            Program.InitializeGridWithDeadCells();
+
+            Program.SetLivingCell(1, 1);
+            Program.SetLivingCell(2, 0);
+            Program.SetLivingCell(2, 1);
+            Program.SetLivingCell(2, 2);
+            Program.SetLivingCell(3, 1);
+
+            Program.CountLivingCells().Should().Be(5);
+
+            Program.GenerateNextGeneration();
+
+            Program.CountLivingCells().Should().Be(4);
+
+            Program.IsAlive(1, 1).Should().BeTrue();
+            Program.IsDead(2, 1).Should().BeTrue();
+            Program.IsAlive(2, 0).Should().BeTrue();
+            Program.IsAlive(2, 2).Should().BeTrue();
+            Program.IsAlive(3, 1).Should().BeTrue();
+
 
         }
     }
