@@ -60,7 +60,15 @@ namespace GameOfLife
         }
         public static int CountLivingCells()
         {
-            throw new NotImplementedException();
+            int nbOfLivingCells = 0;
+            for (int i = 0; i < rowCount; i++)
+            {
+                for (int j = 0; j < columnCount; j++)
+                {
+                    if (grid[i, j]) i++ ;
+                }
+            }
+            return nbOfLivingCells;
         }
         public static void InitializeGridRowWithSeedLine(int row, string seedLine)
         {
