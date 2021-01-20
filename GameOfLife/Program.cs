@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GameOfLife
@@ -43,7 +44,7 @@ namespace GameOfLife
             }
             while (continuing == 'Y' || continuing == 'y');
         }
-        public static void SetLivingCell(int x, int y )
+        public static void SetLivingCell(int x, int y)
         {
             grid[x, y] = true;
         }
@@ -53,7 +54,42 @@ namespace GameOfLife
         }
         public static int CountAdjacentLivingCells(int x, int y)
         {
-            throw new NotImplementedException();
+            int livingCells = 0;
+
+            if (IsInTheGrid(x, y))
+            {
+                var listOfCoordinatesToCheck = new (int, int)[]
+                {
+                    (x-1, y-1),
+                    (x-1, y),
+                    (x-1, y+1),
+                    (x, y-1),
+                    (x+1, y-1),
+                    (x+1, y),
+                    (x+1, y+1),
+                    (x+1, y+1)
+                };
+                foreach(var coordinate in listOfCoordinatesToCheck)
+                {
+                    if (IsInTheGrid(coordinate.Item1, coordinate.Item2) && IsAlive(coordinate.Item1, coordinate.Item2))
+                    {
+                        livingCells++;
+                    }
+                }
+
+
+            }
+
+            return livingCells;
+        }
+        public static bool IsAlive(int x, int y)
+        {
+            return grid[x,y] == true;
+        }
+
+        public static bool IsDead(int x, int y)
+        {
+            return grid[x,y] == false;
         }
         public static int CountLivingCells()
         {
@@ -121,6 +157,10 @@ namespace GameOfLife
                 }
                 Console.WriteLine();
             }
+        }
+        private static bool IsInTheGrid(int x, int y)
+        {
+            return x >= 0 && y >= 0 && x < _rowCount && y < _columnCount;
         }
     }
 }
