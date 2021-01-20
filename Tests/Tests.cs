@@ -45,5 +45,18 @@ namespace Tests
             
             Program.CountLivingCells().Should().Be(0);
         }
+        [Fact]
+        public void ShouldFindOneLivingAdjacentCell()
+        {
+            string testString = "5 5";
+            Program.VerifyGridSize(testString).Should().BeTrue();
+
+            Program.InitializeGridWithDeadCells();
+
+            Program.SetLivingCell(1, 1);
+            Program.CountLivingCells().Should().Be(1);
+            Program.CountAdjacentLivingCells(2, 1).Should().Be(1);
+
+        }
     }
 }

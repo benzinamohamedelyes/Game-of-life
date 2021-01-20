@@ -5,9 +5,10 @@ namespace GameOfLife
 {
     public class Program
     {
-        private static int rowCount;
-        private static int columnCount;
         public static bool[,] grid;
+        private static int _rowCount;
+        private static int _columnCount;
+
         static void Main(string[] args)
         {
             int generation = 1;
@@ -22,7 +23,7 @@ namespace GameOfLife
             InitializeGridWithDeadCells();
 
             Console.WriteLine("please provide the seed data line by line");
-            for (int i = 0; i < rowCount; i++)
+            for (int i = 0; i < _rowCount; i++)
             {
                 string seedLine;
                 do
@@ -42,30 +43,26 @@ namespace GameOfLife
             }
             while (continuing == 'Y' || continuing == 'y');
         }
-
-        private static void DisplayGrid()
+        public static void SetLivingCell(int x, int y )
         {
-            for (int i = 0; i < rowCount; i++)
-            {
-                for (int j = 0; j < columnCount; j++)
-                {
-                    if (j != 0 && j < columnCount)
-                    {
-                        Console.Write(' ');
-                    }
-                    Console.Write((grid[i, j]) ? '*' : '-');
-                }
-                Console.WriteLine();
-            }
+            grid[x, y] = true;
+        }
+        public static void SetDeadCell(int x, int y)
+        {
+            grid[x, y] = false;
+        }
+        public static int CountAdjacentLivingCells(int x, int y)
+        {
+            throw new NotImplementedException();
         }
         public static int CountLivingCells()
         {
             int nbOfLivingCells = 0;
-            for (int i = 0; i < rowCount; i++)
+            for (int i = 0; i < _rowCount; i++)
             {
-                for (int j = 0; j < columnCount; j++)
+                for (int j = 0; j < _columnCount; j++)
                 {
-                    if (grid[i, j]) i++ ;
+                    if (grid[i, j]) nbOfLivingCells++;
                 }
             }
             return nbOfLivingCells;
@@ -80,10 +77,10 @@ namespace GameOfLife
         }
         public static void InitializeGridWithDeadCells()
         {
-            grid = new bool[rowCount, columnCount];
-            for (int i = 0; i < rowCount; i++)
+            grid = new bool[_rowCount, _columnCount];
+            for (int i = 0; i < _rowCount; i++)
             {
-                for (int j = 0; j < columnCount; j++)
+                for (int j = 0; j < _columnCount; j++)
                 {
                     grid[i, j] = false;
                 }
@@ -91,7 +88,7 @@ namespace GameOfLife
         }
         public static bool ValidateSeedLine(string line)
         {
-            if (line.Length == columnCount && line.All(c => c == '.' || c == '*'))
+            if (line.Length == _columnCount && line.All(c => c == '.' || c == '*'))
             {
                 return true;
             }
@@ -102,14 +99,28 @@ namespace GameOfLife
         {
             string[] sizeArray = stringSize.Split(" ");
             if (sizeArray.Length == 2 &&
-                int.TryParse(sizeArray[0], out rowCount) &&
-                int.TryParse(sizeArray[1], out columnCount))
+                int.TryParse(sizeArray[0], out _rowCount) &&
+                int.TryParse(sizeArray[1], out _columnCount))
             {
 
                 return true;
             }
             return false;
         }
-
+        private static void DisplayGrid()
+        {
+            for (int i = 0; i < _rowCount; i++)
+            {
+                for (int j = 0; j < _columnCount; j++)
+                {
+                    if (j != 0 && j < _columnCount)
+                    {
+                        Console.Write(' ');
+                    }
+                    Console.Write((grid[i, j]) ? '*' : '-');
+                }
+                Console.WriteLine();
+            }
+        }
     }
 }
