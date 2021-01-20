@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace GameOfLife
 {
@@ -39,7 +40,7 @@ namespace GameOfLife
         }
         public static bool ValidateSeedLine(string line)
         {
-            throw new NotImplementedException();
+            return line.Length == columnCount && line.All(c => c == '.' || c == '*');
         }
         public static bool VerifyGridSize(string stringSize)
         {
