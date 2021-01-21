@@ -1,0 +1,8 @@
+language: csharp
+mono: latest
+dotnet: 3.1
+solution: ./Game-of-life/GameOfLife.sln
+script:
+  - dotnet restore GameOfLife
+  - dotnet build GameOfLife
+  - dotnet test Tests
