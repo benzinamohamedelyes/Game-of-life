@@ -33,16 +33,19 @@ namespace GameOfLife
                 InitializeGridRowWithSeedLine(i, seedLine);
 
             }
-            char continuing;
+            char continuing = 'N';
             do
             {
+                if (char.ToUpper(continuing) == 'Y')
+                    GenerateNextGeneration();
+
                 Console.WriteLine($"Generation {generation}:");
                 DisplayGrid();
                 Console.WriteLine("Would you like to continue? (Y/N)");
                 continuing = Console.ReadKey().KeyChar;
                 generation++;
             }
-            while (continuing == 'Y' || continuing == 'y');
+            while (char.ToUpper(continuing) == 'Y');
         }
         public static void SetLivingCell(int x, int y)
         {
