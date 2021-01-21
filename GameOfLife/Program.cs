@@ -69,7 +69,7 @@ namespace GameOfLife
                     (x+1, y+1),
                     (x, y+1)
                 };
-                foreach(var coordinate in listOfCoordinatesToCheck)
+                foreach (var coordinate in listOfCoordinatesToCheck)
                 {
                     if (IsInTheGrid(coordinate.Item1, coordinate.Item2) && IsAlive(coordinate.Item1, coordinate.Item2))
                     {
@@ -84,12 +84,12 @@ namespace GameOfLife
         }
         public static bool IsAlive(int x, int y)
         {
-            return grid[x,y] == true;
+            return grid[x, y] == true;
         }
 
         public static bool IsDead(int x, int y)
         {
-            return grid[x,y] == false;
+            return grid[x, y] == false;
         }
         public static int CountLivingCells()
         {
@@ -113,18 +113,21 @@ namespace GameOfLife
                 for (int y = 0; y < _columnCount; y++)
                 {
 
-                    if (IsAlive(x,y) && (CountAdjacentLivingCells(x,y) < 2 || CountAdjacentLivingCells(x, y) > 3))
+                    if (IsAlive(x, y) && (CountAdjacentLivingCells(x, y) < 2 || CountAdjacentLivingCells(x, y) > 3))
                     {
-                        newGrid[x,y] = false;
+                        newGrid[x, y] = false;
                     }
                     else
                     {
-                        newGrid[x, y] = grid[x, y];
+                        if (IsDead(x, y) && CountAdjacentLivingCells(x, y) == 3)
+                            newGrid[x, y] = true;
+                        else
+                            newGrid[x, y] = grid[x, y];
                     }
 
                 }
             }
-            grid = (bool[,]) newGrid.Clone();
+            grid = (bool[,])newGrid.Clone();
         }
         public static void InitializeGridRowWithSeedLine(int row, string seedLine)
         {

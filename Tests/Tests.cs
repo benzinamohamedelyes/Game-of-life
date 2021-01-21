@@ -93,7 +93,7 @@ namespace Tests
             Program.InitializeGridWithDeadCells();
 
             Program.SetLivingCell(1, 1);
-            Program.SetLivingCell(2, 0);
+            Program.SetLivingCell(1, 2);
             Program.SetLivingCell(2, 1);
             Program.SetLivingCell(2, 2);
             Program.SetLivingCell(3, 1);
@@ -102,13 +102,14 @@ namespace Tests
 
             Program.GenerateNextGeneration();
 
-            Program.CountLivingCells().Should().Be(4);
+            Program.CountLivingCells().Should().Be(5);
 
             Program.IsAlive(1, 1).Should().BeTrue();
             Program.IsDead(2, 1).Should().BeTrue();
             Program.IsAlive(2, 0).Should().BeTrue();
-            Program.IsAlive(2, 2).Should().BeTrue();
+            Program.IsDead(2, 2).Should().BeTrue();
             Program.IsAlive(3, 1).Should().BeTrue();
+            Program.IsAlive(3, 2).Should().BeTrue();
         }
         [Fact]
         public void ALiveCellWithTwoOrThreeAdjacentCellsLives()
@@ -127,13 +128,15 @@ namespace Tests
 
             Program.GenerateNextGeneration();
 
-            Program.CountLivingCells().Should().Be(3);
+            Program.CountLivingCells().Should().Be(5);
 
             Program.IsDead(3, 0).Should().BeTrue();
 
             Program.IsAlive(1, 1).Should().BeTrue();
             Program.IsAlive(1, 2).Should().BeTrue();
             Program.IsAlive(2, 1).Should().BeTrue();
+            Program.IsAlive(2, 0).Should().BeTrue();
+            Program.IsAlive(2, 2).Should().BeTrue();
         }
         [Fact]
         public void ADeadCellWithExactlyThreeAdjacentCellsBecomeAlive()
