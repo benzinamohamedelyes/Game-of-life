@@ -116,5 +116,32 @@ namespace Tests
 
 
         }
+        [Fact]
+        public void ACellWithTwoOrThreeAdjacentCellsLives()
+        {
+            string testString = "5 5";
+            Program.VerifyGridSize(testString).Should().BeTrue();
+
+            Program.InitializeGridWithDeadCells();
+
+            Program.SetLivingCell(1, 1);
+            Program.SetLivingCell(1, 2);
+            Program.SetLivingCell(2, 1);
+            Program.SetLivingCell(3, 0);
+
+            Program.CountLivingCells().Should().Be(4);
+
+            Program.GenerateNextGeneration();
+
+            Program.CountLivingCells().Should().Be(3);
+
+            Program.IsDead(3, 0).Should().BeTrue();
+
+            Program.IsAlive(1, 1).Should().BeTrue();
+            Program.IsAlive(1, 2).Should().BeTrue();
+            Program.IsAlive(2, 1).Should().BeTrue();
+
+
+        }
     }
 }
